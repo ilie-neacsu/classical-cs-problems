@@ -1,6 +1,6 @@
 package ai.webtch.search.dna;
 
-public class GeneExample {
+public class GeneMain {
     public static void main(String[] args) {
         String geneStr = "ACGTGGCTCTCTAACGTACGTACGTACGGGGTTTATATATACCCTAGGACTCCCTTT";
         Gene myGene = new Gene(geneStr);

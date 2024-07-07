@@ -5,7 +5,7 @@ import java.util.List;
 import static ai.webtch.search.generic.GenericSearch.linearContains;
 import static ai.webtch.search.generic.GenericSearch.binaryContains;
 
-public class GenericExample {
+public class GenericMain {
     public static void main(String[] args) {
         System.out.println(linearContains(List.of(1, 5, 15, 15, 15, 15, 20), 5)); // true
         System.out.println(binaryContains(List.of("a", "d", "e", "f", "z"), "f")); // true

@@ -6,7 +6,7 @@ import java.util.List;
 
 
 
-public class GraphExample {
+public class GraphMain {
 
         public static void main(String[] args) {
 

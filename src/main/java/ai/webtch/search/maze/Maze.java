@@ -2,7 +2,9 @@ package ai.webtch.search.maze;
 
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Maze {
 
@@ -37,9 +39,9 @@ public class Maze {
         }
     }
 
-    private final int rows, columns;
-    private final MazeLocation start, goal;
-    private Cell[][] grid;
+    public final int rows, columns;
+    public final MazeLocation start, goal;
+    public Cell[][] grid;
 
     public Maze(int rows, int columns, MazeLocation start, MazeLocation goal, double sparseness) {
 
@@ -60,7 +62,7 @@ public class Maze {
 
         // fill the start and goal locations
         grid[start.row][start.colum] = Cell.START;
-        grid[goal.row][start.colum] = Cell.GOAL;
+        grid[goal.row][goal.colum] = Cell.GOAL;
     }
 
     public Maze() {
@@ -85,6 +87,47 @@ public class Maze {
 
     public boolean goalTest(MazeLocation ml) {
         return goal.equals(ml);
+    }
+
+    public List<MazeLocation> successors(MazeLocation ml) {
+        List<MazeLocation> locations = new ArrayList<>();
+
+        if (ml.row + 1 < rows && grid[ml.row + 1][ml.colum] != Cell.BLOCKED) {
+           locations.add(new MazeLocation(ml.row + 1, ml.colum));
+        }
+
+        if (ml.row - 1 >= 0 && grid[ml.row - 1][ml.colum] != Cell.BLOCKED) {
+            locations.add(new MazeLocation(ml.row - 1, ml.colum));
+        }
+
+        if (ml.colum + 1 < columns && grid[ml.row][ml.colum + 1] != Cell.BLOCKED) {
+            locations.add(new MazeLocation(ml.row, ml.colum + 1));
+        }
+
+        if (ml.colum - 1 >= 0 && grid[ml.row][ml.colum - 1] != Cell.BLOCKED) {
+            locations.add(new MazeLocation(ml.row, ml.colum - 1));
+        }
+
+        return locations;
+    }
+
+    public void mark(List<MazeLocation> path) {
+
+        for (MazeLocation ml : path) {
+            grid[ml.row][ml.colum] = Cell.PATH;
+        }
+
+        grid[start.row][start.colum] = Cell.START;
+        grid[goal.row][goal.colum] = Cell.GOAL;
+    }
+
+    public void clear(List<MazeLocation> path) {
+        for (MazeLocation ml : path) {
+            grid[ml.row][ml.colum] = Cell.EMPTY;
+        }
+
+        grid[start.row][start.colum] = Cell.START;
+        grid[goal.row][goal.colum] = Cell.GOAL;
     }
 
     // return a nicely formatted version of the maze for printing
